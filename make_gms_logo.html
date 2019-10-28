@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 18px;
+        }
+
+        body {
+            padding: 10px;
+        }
+
+        .canvas_box {
+            display: inline-block;
+            border: 1px solid red;
+            font-size: 0;
+        }
+
+        .input_box {
+            background-color: beige;
+            border: 1px solid yellowgreen;
+            display: inline-block;
+            padding: 3px;
+        }
+
+        .input_box>* {
+            height: 100%;
+        }
+
+        #android_logo_box {
+            display: block;
+        }
+
+        #android_logo_box>li {
+            display: inline-block;
+            list-style: none;
+            margin: 5px;
+        }
+
+        #android_logo_box>li>img {
+            border: 1px solid yellowgreen;
+        }
+
+        #c_l_i_b {
+            display: inline-block;
+            text-align: center;
+            background-color: rgb(221, 221, 221);
+            box-sizing: border-box;
+            border-width: 1px;
+            border-style: outset;
+            border-color: rgb(221, 221, 221);
+            font: 400 13.3333px Arial;
+        }
+
+        #c_l_i_b:hover {
+            border: 1px solid black;
+        }
+
+        #c_l_i_b:active {
+            background-color: white;
+        }
+
+        #c_l_i_n {
+            display: inline-block;
+            background-color: white;
+            height: 100%;
+            vertical-align: middle;
+            font: 400 13.3333px Arial;
+        }
+
+        .android_logo_hide {
+            display: none !important;
+        }
+
+        .android_logo_show {
+            display: inline;
+        }
+
+        #clean_btn {
+            padding: 3px;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id='first_select'>
+            <div class="input_box">
+                <label for="width">宽度:</label><input type="number" id="width">
+            </div>
+            <div class="input_box">
+                <label for="height">高度:</label><input type="number" id="height">
+            </div>
+            <div class="input_box">
+                <label for="bg_color">选择背景色:</label>
+                <select id="bg_color">
+                    <option value="#000000" selected>黑色</option>
+                    <option value="#ffffff">白色</option>
+                </select>
+            </div>
+            <br>
+            <div class="input_box">
+                <label for="only_android">仅android logo:</label>
+                <select id="only_android">
+                    <!-- <option style="display: none">仅android logo</option> -->
+                    <option value="true">是</option>
+                    <option value="false" selected>否</option>
+                </select>
+            </div>
+            <div class="input_box">
+                <label for="is_go">选择版本:</label>
+                <select id="is_go">
+                    <option value="false" selected>android</option>
+                    <option value="true">android go</option>
+                </select>
+            </div>
+        </div>
+        <ul id="android_logo_box">
+            <li class="no_go">
+                <img src="./img/color_black_android.png" alt="color_black_android" title="color_black_android"
+                    width="100px">
+            </li>
+            <li class="is_go">
+                <img src="./img/color_black_android_go.png" alt="color_black_android_go" title="color_black_android_go"
+                    width="100px">
+            </li>
+            <li class="no_go"><img src="./img/color_dg_android.png" alt="color_dg_android" title="color_dg_android"
+                    width="100px">
+            </li>
+            <li class="is_go"><img src="./img/color_dg_android_go.png" alt="color_dg_android_go"
+                    title="color_dg_android_go" width="100px">
+            </li>
+            <li class="no_go"><img src="./img/color_lg_android.png" alt="color_lg_android" title="color_lg_android"
+                    width="100px">
+            </li>
+            <li class="is_go"><img src="./img/color_lg_android_go.png" alt="color_lg_android_go"
+                    title="color_lg_android_go" width="100px">
+            </li>
+            <li class="no_go  only_a"><img src="./img/logl_android.png" width="100px" alt="logl_android.png"
+                    title="only android logo">
+            </li>
+            <li class="is_go  only_a"><img src="./img/logo_android_go.png" width="100px" alt="logo_android_go"
+                    title="only android logo">
+            </li>
+        </ul>
+        <input type="file" id="c_l_i" style="display: none">
+        <button id="clean_btn">重做</button>
+        <br>
+        <label for="android_range" style="display: none">
+            android logo 缩放:
+            <input id="android_range" type="range" min="1" max="100" value="1" />
+        </label>
+        <label for="custom_range" style="display: none">
+            custom logo 缩放:
+            <input id="custom_range" type="range" min="1" max="100" value="1" />
+        </label>
+        <label for="vertical_move" style="display: none">
+            custom logo 垂直移动:
+            <input id="vertical_move" type="range" min="0" max="0" value="0" />
+        </label>
+    </div>
+    <div class="canvas_box"><canvas width="0" height="0"></canvas></div>
+    <script src="./js/color_tools.js"></script>
+    <script src="./js/logo_make.js"></script>
+    <script>
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        if (userAgent.indexOf("Firefox") > -1) {
+            console.log("Firefox");
+        } //判断是否Firefox浏览器
+        else if (userAgent.indexOf("Chrome") > -1) {
+            console.log("Chrome");
+        } else {
+            alert('请使用Chrome或者Firefox浏览器！');
+        }
+    </script>
+</body>
+
+</html>
